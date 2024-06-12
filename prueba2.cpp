@@ -1,7 +1,7 @@
-#include<string>
 #include<iostream>
+#include<string>
+#include<fstream>
 using namespace std;
-
 
 class Persona
 {
@@ -14,43 +14,47 @@ public:
    string duracion_estancia;
    string estado_civil;
    string pais_residencia;
-   string propocito;
-   string acompañante;
 
-    Persona(string nacionalidad_ , string fecha_nacimiento_ ,string tipo_visita_ ,string duracion_estancia_ 
-    , string estado_civil_ , string pais_residencia_ , string propocito_ , string acompañante_);
+    Persona();
     ~Persona();
     void mostrar_info_nivel_1(){
         std::cout<<"Nacionalidad: "<<nacinalidad<<endl;
         std::cout<<"Fecha nacimiento: "<<fecha_nacimiento<<endl;
         std::cout<<"Tipo visita: "<<tipo_visita<<endl;
-        std::cout<<"Duracion estancia "<<duracion_estancia<<endl;
+        std::cout<<"Duracion estancia: "<<duracion_estancia<<endl;
         std::cout<<"Estado civil: "<<estado_civil<<endl;
 
     }
+
+    void set_nacionalidad(string nacionalidad_){
+        nacinalidad=nacionalidad_;
+    }
+     void set_fecha(string fecha_){
+        fecha_nacimiento=fecha_;
+    }
+     void set_visita(string visita_){
+        tipo_visita=visita_;
+    }
+     void set_duracion_estancia(string estancia_){
+        duracion_estancia=estancia_;
+    }
+     void set_estado_civil(string estado_){
+        estado_civil=estado_;
+    }
+
+
+
 };
 
-Persona::Persona(string nacionalidad_ , string fecha_nacimiento_ ,string tipo_visita_ ,string duracion_estancia_ 
-    , string estado_civil_ , string pais_residencia_ , string propocito_ , string acompañante_)
+Persona::Persona()
 {
-
-    
-nacinalidad=nacionalidad_;
-fecha_nacimiento=fecha_nacimiento_;
-tipo_visita=tipo_visita_;
-duracion_estancia=duracion_estancia_;
-estado_civil=estado_civil_;
-pais_residencia=pais_residencia_;
-propocito=propocito_;
-acompañante=acompañante_;
-
 
 }
 
 Persona::~Persona()
 {
 }
-
+/*
 class Aldeano : public Persona
 {
 
@@ -129,23 +133,50 @@ public:
 };
 
 
-Persona Generar_aleatorio(string n[],string tipo_v[],string estado_c[],string pais_res[],string prop[],string acompañantes[]){
+*/
+void leer_personas(Persona &p){
 
-    Aldeano aldeano1("Argentino","02/08/2000","Trabajo","15 dias","Casado","Brasil","Trabajo","1 familiar");
-    return aldeano1;
-    
+ifstream archivo;
+archivo.open("personas.txt");
+if(archivo.fail()){
+    exit(1);
 }
+
+string nacinalidad,fecha,visita,duracion,estado;
+while (!archivo.eof())
+{
+
+getline(archivo,nacinalidad);    
+p.set_nacionalidad(nacinalidad);
+archivo.get();
+
+getline(archivo,fecha);    
+p.set_fecha(fecha);
+
+getline(archivo,visita);    
+p.set_visita(visita);
+
+getline(archivo,duracion);    
+p.set_duracion_estancia(duracion);
+
+
+getline(archivo,estado);    
+p.set_estado_civil(estado);
+archivo.get();
+
+}
+
+
+}
+
+
 
 int main(int argc, char const *argv[])
 {
     
-    string nacionalidad[]={"Arg","Par","Cl","Ur"};
-    string tipo_visita[]={"Trabajo","turista"};
-    string estado_civil[]={"Casado","Soltero"};
-    string pais_residencia[]={"Arg","Par","Cl","Ur"};
-    string propositos[]={"Trabajo","turista"};
-    string acompañantes[]={"familiar","amigos"};
-
+Persona persona1;
+leer_personas(persona1);
+persona1.mostrar_info_nivel_1();
 
 
 
