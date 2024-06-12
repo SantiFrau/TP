@@ -148,7 +148,7 @@ while (!archivo.eof())
 
 getline(archivo,nacinalidad);    
 p.set_nacionalidad(nacinalidad);
-archivo.get();
+
 
 getline(archivo,fecha);    
 p.set_fecha(fecha);
@@ -162,7 +162,7 @@ p.set_duracion_estancia(duracion);
 
 getline(archivo,estado);    
 p.set_estado_civil(estado);
-archivo.get();
+
 
 }
 
