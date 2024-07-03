@@ -134,49 +134,91 @@ public:
 
 
 */
-void leer_personas(Persona &p){
+void leer_personas(Persona p []){
 
 ifstream archivo;
 archivo.open("personas.txt");
 if(archivo.fail()){
     exit(1);
 }
+int c=0;
 
 string nacinalidad,fecha,visita,duracion,estado;
 while (!archivo.eof())
 {
 
 getline(archivo,nacinalidad);    
-p.set_nacionalidad(nacinalidad);
+p[c].set_nacionalidad(nacinalidad);
 
 
 getline(archivo,fecha);    
-p.set_fecha(fecha);
+p[c].set_fecha(fecha);
 
 getline(archivo,visita);    
-p.set_visita(visita);
+p[c].set_visita(visita);
 
 getline(archivo,duracion);    
-p.set_duracion_estancia(duracion);
+p[c].set_duracion_estancia(duracion);
 
 
 getline(archivo,estado);    
-p.set_estado_civil(estado);
+p[c].set_estado_civil(estado);
 
-
+c++;
 }
 
 
 }
+void leer_info(Persona p []){
 
+ifstream archivo;
+archivo.open("info.txt");
+if(archivo.fail()){
+    exit(1);
+}
+int c=0;
+
+string nacinalidad,fecha,visita,duracion,estado;
+while (!archivo.eof())
+{
+
+getline(archivo,nacinalidad);    
+p[c].set_nacionalidad(nacinalidad);
+
+
+getline(archivo,fecha);    
+p[c].set_fecha(fecha);
+
+getline(archivo,visita);    
+p[c].set_visita(visita);
+
+getline(archivo,duracion);    
+p[c].set_duracion_estancia(duracion);
+
+
+getline(archivo,estado);    
+p[c].set_estado_civil(estado);
+
+c++;
+}
+
+
+}
 
 
 int main(int argc, char const *argv[])
 {
     
-Persona persona1;
+Persona persona1[3];
 leer_personas(persona1);
-persona1.mostrar_info_nivel_1();
+Persona info [3];
+leer_info(info);
+
+
+
+persona1[0].mostrar_info_nivel_1();
+cout<<endl;
+info[0].mostrar_info_nivel_1();
 
 
 
