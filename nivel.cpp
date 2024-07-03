@@ -138,6 +138,7 @@ bool validar_info(Persona p, Persona info);
 
 int main(int argc, char const *argv[])
 {
+    
 int puntos=0;
 int multas=0;    
 Persona persona1[3];
