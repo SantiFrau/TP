@@ -12,7 +12,10 @@ public:
     string tipo_visita;
     string duracion_estancia;
     string estado_civil;
+    string pais_r;
+    string proposito;
     string tipo;
+    string acompaniantes;
 
     Persona() {}
     virtual ~Persona() {}
@@ -23,6 +26,7 @@ public:
         cout << "Tipo visita: " << tipo_visita << endl;
         cout << "Duracion estancia: " << duracion_estancia << endl;
         cout << "Estado civil: " << estado_civil << endl;
+       
     }
 
     void set_nacionalidad(const string& nacionalidad_) {
@@ -42,6 +46,15 @@ public:
     }
     void set_tipo(const string& tipo_) {
         tipo = tipo_;
+    }
+    void set_pais_r(const string& pais_) {
+        pais_r = pais_;
+    }
+    void set_proposito(const string& proposito_) {
+        proposito = proposito_;
+    }
+    void set_acompaniante(const string& acompaniante_) {
+        acompaniantes = acompaniante_;
     }
 
     virtual int get_puntos_validacion(bool es_valido, bool dejar_pasar) const = 0;
@@ -90,17 +103,22 @@ public:
 void leer_personas(Persona* personas[], const string& archivo_personas);
 void validar_entrada(char decision, Persona* p, Persona* info, int& puntos, int& multas);
 bool validar_info(const Persona* p, const Persona* info);
+void guardar_persona(Persona *p[], Persona *info[], int multas , int puntos,int c);
+
+
 
 int main(int argc, char const* argv[]) {
     int puntos = 0;
     int multas = 0;
-
     Persona* personas[3];
     leer_personas(personas, "personas.txt");
 
     Persona* info[3];
     leer_personas(info, "info.txt");
 
+    Persona *p[3] ;
+    Persona *inf[3] ;
+    int c1 =0;
     int c = 3;
 
     for (int i = 0; i < c; ++i) {
@@ -112,13 +130,20 @@ int main(int argc, char const* argv[]) {
         cout << "Dejar pasar : SI(S) / NO(N)" << endl;
         cin >> decision;
         validar_entrada(decision, personas[i], info[i], puntos, multas);
-
+           
+           if(decision == 'S'){
+            p[c1] = personas[i];
+            inf[c1]=personas[i];
+            c1++;
+        }
         cout << "------------" << endl;
 
         if (multas > 4 || puntos < 0) {
             exit(1);
         }
     }
+    
+    guardar_persona(p, inf, multas, puntos ,c1);
 
     cout << "Puntos : " << puntos << endl;
     cout << "Multas : " << multas << endl;
@@ -127,6 +152,50 @@ int main(int argc, char const* argv[]) {
     return 0;
 }
 
+
+void guardar_persona(Persona *p[], Persona *info[], int multas , int puntos , int c){
+ 
+ ofstream archivo;
+ ofstream archivo1;
+ ofstream archivo2;
+ archivo.open("../personas.txt");
+ archivo1.open("../puntuacion.txt");
+ archivo2.open("../info.txt" );
+
+ if(archivo.fail() && archivo1.fail() && archivo2.fail()){
+    exit(1);
+    
+ }
+
+for(int i=0;i<c;i++){
+archivo<<p[i]->nacionalidad<<endl;
+ archivo<<p[i]->fecha_nacimiento<<endl;
+ archivo<<p[i]->tipo_visita<<endl;
+ archivo<<p[i]->duracion_estancia<<endl;
+ archivo<<p[i]->estado_civil<<endl;
+ archivo<<p[i]->tipo<<endl;
+ archivo<<p[i]->proposito<<endl;
+ archivo<<p[i]->pais_r<<endl;
+ archivo<<p[i]->acompaniantes<<endl;
+ 
+
+ archivo2<<info[i]->nacionalidad<<endl;
+ archivo2<<info[i]->fecha_nacimiento<<endl;
+ archivo2<<info[i]->tipo_visita<<endl;
+ archivo2<<info[i]->duracion_estancia<<endl;
+ archivo2<<info[i]->estado_civil<<endl;
+ archivo2<<info[i]->tipo<<endl;
+ archivo2<<info[i]->proposito<<endl;
+ archivo2<<info[i]->pais_r<<endl;
+ archivo2<<info[i]->acompaniantes<<endl;
+ 
+ archivo1<<multas<<endl;
+ archivo1<<puntos<<endl;
+}
+ 
+}
+
+
 void leer_personas(Persona* personas[], const string& archivo_personas) {
     ifstream archivo(archivo_personas);
     if (archivo.fail()) {
@@ -134,7 +203,7 @@ void leer_personas(Persona* personas[], const string& archivo_personas) {
     }
 
     int c = 0;
-    string nacionalidad, fecha, visita, duracion, estado, tipo;
+    string nacionalidad, fecha, visita, duracion, estado, tipo ,proposito ,pais,acompaniates;
 
     while (!archivo.eof()) {
         getline(archivo, nacionalidad);
@@ -143,6 +212,9 @@ void leer_personas(Persona* personas[], const string& archivo_personas) {
         getline(archivo, duracion);
         getline(archivo, estado);
         getline(archivo, tipo);
+        getline(archivo, proposito);
+        getline(archivo, pais);
+        getline(archivo, acompaniates);
 
         if (tipo == "aldeano") {
             personas[c] = new Aldeano();
@@ -160,6 +232,9 @@ void leer_personas(Persona* personas[], const string& archivo_personas) {
         personas[c]->set_duracion_estancia(duracion);
         personas[c]->set_estado_civil(estado);
         personas[c]->set_tipo(tipo);
+         personas[c]->set_proposito(proposito);
+          personas[c]->set_pais_r(pais);
+          personas[c]->set_acompaniante(acompaniates);
 
         c++;
     }
