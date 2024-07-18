@@ -7,6 +7,8 @@ aldeano
 Trabajo
 Argentina
 2 acompañantes
+medico
+1 mochila , 1 bolso 
 Argentina
 2/9/2012
 Trabajo
@@ -16,6 +18,8 @@ aldeano
 Trabajo
 Argentina
 2 acompañantes
+medico
+1 mochila , 1 bolso
 Argentina
 1/9/2012
 Trabajo
@@ -25,3 +29,5 @@ revolucionario
 Trabajo
 Argentina
 2 acompañantes
+medico
+1 mochila , 1 bolso

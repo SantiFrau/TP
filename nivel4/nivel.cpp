@@ -22,7 +22,7 @@ public:
     Persona() {}
     virtual ~Persona() {}
 
-    void mostrar_info_nivel_3() const {
+    void mostrar_info_nivel_4() const {
         cout << "Nacionalidad: " << nacionalidad << endl;
         cout << "Fecha nacimiento: " << fecha_nacimiento << endl;
         cout << "Tipo visita: " << tipo_visita << endl;
@@ -31,6 +31,7 @@ public:
         cout<<"Pais de residencia: "<<pais_r<<endl;
         cout<<"Proposito del viaje: "<<proposito<<endl;
         cout<<"Acompañantes: "<<acompaniantes<<endl;
+        cout<<"Ocupacion: "<<ocupacion<<endl;
     }
 
     void set_nacionalidad(const string& nacionalidad_) {
@@ -136,9 +137,9 @@ int main(int argc, char const* argv[]) {
    
 
     for (int i = 0; i < c; ++i) {
-        personas[i]->mostrar_info_nivel_3();
+        personas[i]->mostrar_info_nivel_4();
         cout << endl;
-        info[i]->mostrar_info_nivel_3();
+        info[i]->mostrar_info_nivel_4();
 
         char decision;
         cout << "Dejar pasar : SI(S) / NO(N)" << endl;
@@ -281,7 +282,6 @@ int leer_personas(Persona* personas[], const string& archivo_personas) {
     return c-1;
 }
 
-
 void validar_entrada(char decision, Persona* p, Persona* info, int& puntos, int& multas) {
     bool es_valido = validar_info(p, info);
     bool dejar_pasar = (decision == 'S');
@@ -303,6 +303,7 @@ bool validar_info(const Persona* p, const Persona* info) {
            p->tipo == info->tipo &&
            p->proposito == info->proposito &&
            p->pais_r == info->pais_r &&
-           p->acompaniantes == info->acompaniantes;
+           p->acompaniantes == info->acompaniantes &&
+           p->ocupacion == info->ocupacion;
 
 }

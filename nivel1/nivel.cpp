@@ -16,6 +16,8 @@ public:
     string proposito;
     string tipo;
     string acompaniantes;
+    string ocupacion;
+    string detalles_bienes;
 
     Persona() {}
     virtual ~Persona() {}
@@ -55,6 +57,12 @@ public:
     }
     void set_acompaniante(const string& acompaniante_) {
         acompaniantes = acompaniante_;
+    }
+     void set_ocupacion(const string& ocupacion_) {
+        ocupacion = ocupacion_;
+    }
+     void set_detalles_bienes(const string& detalles_bienes_) {
+        detalles_bienes = detalles_bienes_;
     }
 
     virtual int get_puntos_validacion(bool es_valido, bool dejar_pasar) const = 0;
@@ -177,6 +185,10 @@ archivo<<p[i]->nacionalidad<<endl;
  archivo<<p[i]->proposito<<endl;
  archivo<<p[i]->pais_r<<endl;
  archivo<<p[i]->acompaniantes<<endl;
+ archivo<<p[i]->ocupacion<<endl;
+ archivo<<p[i]->detalles_bienes<<endl;
+
+
  
 
  archivo2<<info[i]->nacionalidad<<endl;
@@ -188,6 +200,8 @@ archivo<<p[i]->nacionalidad<<endl;
  archivo2<<info[i]->proposito<<endl;
  archivo2<<info[i]->pais_r<<endl;
  archivo2<<info[i]->acompaniantes<<endl;
+ archivo2<<p[i]->ocupacion<<endl;
+ archivo2<<p[i]->detalles_bienes<<endl;
  
  archivo1<<multas<<endl;
  archivo1<<puntos<<endl;
@@ -203,7 +217,7 @@ void leer_personas(Persona* personas[], const string& archivo_personas) {
     }
 
     int c = 0;
-    string nacionalidad, fecha, visita, duracion, estado, tipo ,proposito ,pais,acompaniates;
+    string nacionalidad, fecha, visita, duracion, estado, tipo ,proposito ,pais,acompaniates,ocupacion,detalles_bienes;
 
     while (!archivo.eof()) {
         getline(archivo, nacionalidad);
@@ -215,6 +229,8 @@ void leer_personas(Persona* personas[], const string& archivo_personas) {
         getline(archivo, proposito);
         getline(archivo, pais);
         getline(archivo, acompaniates);
+        getline(archivo, ocupacion);
+        getline(archivo, detalles_bienes);
 
         if (tipo == "aldeano") {
             personas[c] = new Aldeano();
@@ -232,9 +248,11 @@ void leer_personas(Persona* personas[], const string& archivo_personas) {
         personas[c]->set_duracion_estancia(duracion);
         personas[c]->set_estado_civil(estado);
         personas[c]->set_tipo(tipo);
-         personas[c]->set_proposito(proposito);
-          personas[c]->set_pais_r(pais);
-          personas[c]->set_acompaniante(acompaniates);
+        personas[c]->set_proposito(proposito);
+        personas[c]->set_pais_r(pais);
+        personas[c]->set_acompaniante(acompaniates);
+        personas[c]->set_ocupacion(ocupacion);
+        personas[c]->set_detalles_bienes(detalles_bienes);
 
         c++;
     }
